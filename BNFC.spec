@@ -2,7 +2,7 @@ Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
 Version:	2.3
-Release:	0.b.1
+Release:	0.b.2
 License:	GPL
 Group:		Development/Tools
 Source0:	http://www.cs.chalmers.se/~markus/BNFC/%{name}_%{version}b.tgz
