@@ -1,13 +1,13 @@
 Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
-Version:	2.3
-Release:	0.b.2
+Version:	2.4b
+Release:	1
 License:	GPL
 Group:		Development/Tools
-Source0:	http://www.cs.chalmers.se/~markus/BNFC/%{name}_%{version}b.tgz
-# Source0-md5:	1c31e0ef06ed27032a0f50d1b0ea860d
-URL:		http://www.cs.chalmers.se/~markus/BNFC/
+Source0:	http://www.cse.chalmers.se/research/group/Language-technology/BNFC/download/%{name}-%{version}.tgz
+# Source0-md5:	8eac71d4883e5209a6c78fbad2c2c5fd
+URL:		http://www.cse.chalmers.se/research/group/Language-technology/BNFC/
 BuildRequires:	ghc
 BuildRequires:	gmp-devel
 BuildRequires:	tetex-format-pdflatex
@@ -26,7 +26,7 @@ zostało napisane do generowania Haskella, ale począwszy of wersji 2.0
 potrafi także generować kod w Javie, C++ i C.
 
 %prep
-%setup -q -n %{name}_%{version}b
+%setup -q -n %{name}
 
 %build
 %{__make}
