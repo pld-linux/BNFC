@@ -1,0 +1,29 @@
+diff -ur BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs
+--- BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:22:20.884850258 +0200
++++ BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:18:30.612414990 +0200
+@@ -1,5 +1,5 @@
+ {-
+-    BNF Converter: Alex 2.0 Generator
++    BNF Converter: Alex 3.0 Generator
+     Copyright (C) 2004  Author:  Peter Gammie
+ 
+     This program is free software; you can redistribute it and/or modify
+@@ -59,6 +59,7 @@
+   -- "import " ++ errMod,
+   if shareStrings then "import " ++ shareMod else "",
+   if byteStrings  then "import qualified Data.ByteString.Char8 as BS" else "",
++  "import Data.Word (Word8)",
+   "}",
+   ""
+   ]
+@@ -210,6 +211,10 @@
+   "",
+   "alexInputPrevChar :: AlexInput -> Char",
+   "alexInputPrevChar (p, c, s) = c",
++  "alexGetByte :: AlexInput -> Maybe (Word8, AlexInput)",
++  "alexGetByte (p,[]) = Nothing",
++  "alexGetByte (p, (c:s)) = let p' = alexMove p c in p' `seq`",
++  "                           Just ((fromIntegral $ ord c), (p', s))",
+   "}"
+   ]
+  where

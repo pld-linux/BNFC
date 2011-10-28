@@ -2,13 +2,14 @@ Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
 Version:	2.4.2.0
-Release:	3
+Release:	3.1
 Epoch:		1
 License:	GPL
 Group:		Development/Tools
 Source0:	http://hackage.haskell.org/packages/archive/BNFC/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	fda25414352413879bc8f76d0558fcb4
 Patch0:		%{name}-ghc72.patch
+Patch1:		%{name}-alex3.patch
 URL:		http://www.cse.chalmers.se/research/group/Language-technology/BNFC/
 BuildRequires:	ghc
 BuildRequires:	gmp-devel
@@ -34,6 +35,7 @@ potrafi także generować kod w Javie, C++ i C.
 find -type f -print0 | xargs -0 %{__sed} -i -e 's,\r$,,'
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 runhaskell Setup.lhs configure -v2 --enable-library-profiling \
