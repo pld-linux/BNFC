@@ -2,7 +2,7 @@ Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
 Version:	2.4.2.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Tools
 Source0:	http://hackage.haskell.org/packages/archive/BNFC/%{version}/%{name}-%{version}.tar.gz
@@ -28,6 +28,10 @@ potrafi także generować kod w Javie, C++ i C.
 
 %prep
 %setup -q
+
+# undos the source
+find -type f -print0 | xargs -0 %{__sed} -i -e 's,\r$,,'
+
 %patch0 -p1
 
 %build
