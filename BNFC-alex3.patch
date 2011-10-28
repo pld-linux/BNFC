@@ -1,6 +1,6 @@
 diff -ur BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs
---- BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:28:01.560188285 +0200
-+++ BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:49:10.615238951 +0200
+--- BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs	2011-10-29 00:19:00.596837566 +0200
++++ BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs	2011-10-29 00:20:26.259836814 +0200
 @@ -59,6 +59,7 @@
    -- "import " ++ errMod,
    if shareStrings then "import " ++ shareMod else "",
@@ -9,20 +9,18 @@ diff -ur BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs BNFC-2.4.2.0-alex3/formats/h
    "}",
    ""
    ]
-@@ -200,13 +201,13 @@
-   "                AlexSkip  inp' len     -> go inp'",
-   "                AlexToken inp' len act -> act pos ("++stringTake++" len str) : (go inp')",
+@@ -208,6 +209,14 @@
+   "             let p' = alexMove p c",
+   "              in p' `seq` Just (c, (p', c, s))",
    "",
--  "alexGetChar :: AlexInput -> Maybe (Char,AlexInput)",
--  "alexGetChar (p, _, s) =",
 +  "alexGetByte :: AlexInput -> Maybe (Word8,AlexInput)",
 +  "alexGetByte (p, _, s) =",
-   "  case "++stringUncons++" s of",
-   "    "++stringNilP++"  -> Nothing",
-   "    "++stringConsP++" ->",
-   "             let p' = alexMove p c",
--  "              in p' `seq` Just (c, (p', c, s))",
++  "  case "++stringUncons++" s of",
++  "    "++stringNilP++"  -> Nothing",
++  "    "++stringConsP++" ->",
++  "             let p' = alexMove p c",
 +  "              in p' `seq` Just ((fromIntegral $ ord c), (p', c, s))",
-   "",
++  "",
    "alexInputPrevChar :: AlexInput -> Char",
    "alexInputPrevChar (p, c, s) = c",
+   "}"
