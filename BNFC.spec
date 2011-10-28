@@ -2,11 +2,12 @@ Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
 Version:	2.4.2.0
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Development/Tools
 Source0:	http://hackage.haskell.org/packages/archive/BNFC/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	fda25414352413879bc8f76d0558fcb4
+Patch0:		%{name}-ghc72.patch
 URL:		http://www.cse.chalmers.se/research/group/Language-technology/BNFC/
 BuildRequires:	ghc
 BuildRequires:	gmp-devel
@@ -27,25 +28,31 @@ potrafi także generować kod w Javie, C++ i C.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%{__make}
+runhaskell Setup.lhs configure -v2 --enable-library-profiling \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--libexecdir=%{_libexecdir} \
+	--docdir=%{_docdir}/%{name}-%{version}
 
-cd doc
-pdflatex LBNF-report.tex
+runhaskell Setup.lhs build
+runhaskell Setup.lhs haddock --executables
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_examplesdir}/%{name}-%{version}}
 
-install bnfc $RPM_BUILD_ROOT%{_bindir}
-cp -a examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+runhaskell Setup.lhs copy --destdir=$RPM_BUILD_ROOT
+
+# work around automatic haddock docs installation
+rm -rf %{name}-%{version}-doc
+cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc TODO doc/*.pdf
+%doc %{name}-%{version}-doc/html/bnfc/*
 %attr(755,root,root) %{_bindir}/*
-%{_examplesdir}/%{name}-%{version}
