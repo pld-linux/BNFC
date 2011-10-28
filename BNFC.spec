@@ -2,7 +2,7 @@ Summary:	BNF Converter
 Summary(pl.UTF-8):	Konwerter BNF
 Name:		BNFC
 Version:	2.4.2.0
-Release:	3.3
+Release:	4
 Epoch:		1
 License:	GPL
 Group:		Development/Tools
@@ -14,7 +14,6 @@ URL:		http://www.cse.chalmers.se/research/group/Language-technology/BNFC/
 BuildRequires:	ghc
 BuildRequires:	gmp-devel
 BuildRequires:	tetex-format-pdflatex
-Conflicts:	alex < 3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
