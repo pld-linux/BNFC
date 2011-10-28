@@ -1,13 +1,6 @@
 diff -ur BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs
---- BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:22:20.884850258 +0200
-+++ BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:18:30.612414990 +0200
-@@ -1,5 +1,5 @@
- {-
--    BNF Converter: Alex 2.0 Generator
-+    BNF Converter: Alex 3.0 Generator
-     Copyright (C) 2004  Author:  Peter Gammie
- 
-     This program is free software; you can redistribute it and/or modify
+--- BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:28:01.560188285 +0200
++++ BNFC-2.4.2.0-alex3/formats/haskell2/CFtoAlex2.hs	2011-10-28 20:29:32.819832372 +0200
 @@ -59,6 +59,7 @@
    -- "import " ++ errMod,
    if shareStrings then "import " ++ shareMod else "",
@@ -16,14 +9,14 @@ diff -ur BNFC-2.4.2.0/formats/haskell2/CFtoAlex2.hs BNFC-2.4.2.0-alex3/formats/h
    "}",
    ""
    ]
-@@ -210,6 +211,10 @@
+@@ -200,8 +201,8 @@
+   "                AlexSkip  inp' len     -> go inp'",
+   "                AlexToken inp' len act -> act pos ("++stringTake++" len str) : (go inp')",
    "",
-   "alexInputPrevChar :: AlexInput -> Char",
-   "alexInputPrevChar (p, c, s) = c",
-+  "alexGetByte :: AlexInput -> Maybe (Word8, AlexInput)",
-+  "alexGetByte (p,[]) = Nothing",
-+  "alexGetByte (p, (c:s)) = let p' = alexMove p c in p' `seq`",
-+  "                           Just ((fromIntegral $ ord c), (p', s))",
-   "}"
-   ]
-  where
+-  "alexGetChar :: AlexInput -> Maybe (Char,AlexInput)",
+-  "alexGetChar (p, _, s) =",
++  "alexGetByte :: AlexInput -> Maybe (Char,AlexInput)",
++  "alexGetByte (p, _, s) =",
+   "  case "++stringUncons++" s of",
+   "    "++stringNilP++"  -> Nothing",
+   "    "++stringConsP++" ->",
