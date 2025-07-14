@@ -34,8 +34,8 @@ potrafi także generować kod w Javie, C++ i C.
 # undos the source
 find -type f -print0 | xargs -0 %{__sed} -i -e 's,\r$,,'
 
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 runhaskell Setup.lhs configure -v2 --enable-library-profiling \
